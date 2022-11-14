@@ -50,7 +50,9 @@ if(require("waiter")==F){
 if(require("shinyWidgets")==F){
   install.packages("shinyWidgets")
 }
-
+if(require("readxl")==F){
+  install.packages("readxl")
+}
 
 
 #Loading libraries (please ensure that they are installed in your system )
