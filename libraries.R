@@ -38,9 +38,20 @@ if(require("factoextra")==F){
 if(require("soc.ca")==F){
   install.packages("soc.ca")
 }
-if(require("readxl")==F){
-  install.packages("readxl")
+if(require("pander")==F){
+  install.packages("pander")
 }
+if(require("shinyFeedback")==F){
+  install.packages("shinyFeedback")
+}
+if(require("waiter")==F){
+  install.packages("waiter")
+}
+if(require("shinyWidgets")==F){
+  install.packages("shinyWidgets")
+}
+
+
 
 #Loading libraries (please ensure that they are installed in your system )
 library(tidyverse)
@@ -57,6 +68,10 @@ library(CAinterprTools)
 library(DT)
 library(shiny)
 library(readxl)
+library(pander)
+library(shinyFeedback)
+library(waiter)
+library(shinyWidgets)
 (.packages())
 # Get the directory from the path of the current file.
 cur_dir2 = dirname(this.path())
