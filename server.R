@@ -2,6 +2,8 @@ source('libraries.R')
 
 library(shiny)
 library(waiter)
+library(readr)
+library(readxl)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output,session) {
@@ -10,19 +12,16 @@ shinyServer(function(input, output,session) {
   
  
   data <- reactive({
-    inFile <- input$file1
+    infile <- input$file1
     
-    if (is.null(inFile))
+    if (is.null(infile))
       return(NULL)
-    print(str(inFile))
+    print(str(infile))
     
-    if (inFile$type=="application/vnd.ms-excel"){
-      read.csv(inFile$datapath, header = input$header)->data
-    }else{
-      file.rename(inFile$datapath,
-                  paste(inFile$datapath, ".xlsx", sep=""))
-      read_excel(paste(inFile$datapath, ".xlsx", sep=""), 1)->data
-      
+    if(infile$type == "text/csv") {
+      read_csv(infile$datapath,col_names = input$header)->data
+    } else if(infile$type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+      read_xlsx(infile$datapath,col_names = input$header)->data
     }
     
     index <- 1:ncol(data)

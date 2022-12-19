@@ -3,13 +3,17 @@ library(shiny)
 library(waiter)
 library(shinyFeedback)
 library(shinyWidgets)
-
+library(readr)
+library(readxl)
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
+shinyUI(
+  navbarPage("'Automatic' MCA interpretion",
+             tabPanel("InterShiny",
+  fluidPage(
   useSweetAlert(),
  
     # Application title
-    titlePanel("'Automatic' MCA interpretion"),
+    titlePanel(""),
 
     
     sidebarLayout(
@@ -21,12 +25,12 @@ shinyUI(fluidPage(
         textOutput("help"),
           tags$h3("Load data"),
           tags$hr(),
-          fileInput("file1", "Choose Excel File",
+          fileInput("file1", "Choose CSV or XLSX File",
                     accept = c(
                       "text/csv",
                       "text/comma-separated-values,text/plain",
-                      ".csv",".xlsx",".xls")),
-        
+                      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")),
+        checkboxInput("header", "First row is a header?", TRUE),
         checkboxInput("show_scree","Show scree plot",value=T),
         
         
@@ -45,7 +49,8 @@ shinyUI(fluidPage(
             tabPanel("Results",fluidRow(column(3,checkboxInput("show_coords","Show coordinates")),
                                         column(3,checkboxInput("show_ecoords","Show interpretive coordinates")),
                                         column(3,checkboxInput("show_ctr","Show ctr")),
-                                        column(3,checkboxInput("show_cor","Show cor"))
+                                        column(3,checkboxInput("show_cor","Show cor")),
+                                        style = "border: 1px solid gray;"
                                         
                                         
                                         ),
@@ -98,4 +103,5 @@ shinyUI(fluidPage(
           
         )
     )
+))
 ))
