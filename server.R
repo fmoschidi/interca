@@ -1,5 +1,5 @@
 source('libraries.R')
-
+library(writexl)
 library(shiny)
 library(waiter)
 library(readr)
@@ -210,12 +210,31 @@ shinyServer(function(input, output,session) {
    return(axis_table)
  })
  
+ output$download_axis_table <- downloadHandler(
+   filename = function() {
+     "axis.xlsx"
+   },
+   content = function(file) {
+     openxlsx::write.xlsx(axis_table(), file,row.names=T)
+   }
+ )
+ 
  plane_table<-eventReactive(input$do_plane,{
    cbind(as.data.frame(round(slider_plane_table()[[1]],2)),as.data.frame(round(slider_plane_table()[[2]],2)))->plane_table
    plane_table=as.data.frame(plane_table)
    colnames(plane_table)=c("x-axis interpretive coordinates","y-axis interpretive coordinates")
    return(plane_table)
  })
+ 
+ output$download_plane_table <- downloadHandler(
+   filename = function() {
+     "plane.xlsx"
+   },
+   content = function(file) {
+     openxlsx::write.xlsx(plane_table(), file,row.names=T)
+   }
+ )
+ 
  
  output$slider_axis_table<-DT::renderDataTable( axis_table(),
                                                  options=list(pageLength=5,scrollX = TRUE,scrollY = TRUE))

@@ -49,8 +49,8 @@ shinyUI(
             tabPanel("Results",fluidRow(column(3,checkboxInput("show_coords","Show coordinates")),
                                         column(3,checkboxInput("show_ecoords","Show interpretive coordinates")),
                                         column(3,checkboxInput("show_ctr","Show ctr")),
-                                        column(3,checkboxInput("show_cor","Show cor")),
-                                        style = "border: 1px solid gray;"
+                                        column(3,checkboxInput("show_cor","Show cor"))
+                                        
                                         
                                         
                                         ),
@@ -73,7 +73,8 @@ shinyUI(
                               sliderInput("slider_axis","Filter points",value = 50,min=0,max=100),
                               actionButton("do_axis","Create axis and table",class="btn-success"),
                               downloadButton("download_axis", "Download axis"),
-                              downloadButton("report", "Generate report",class="btn-info")),
+                              downloadButton("report", "Generate report",class="btn-info"),
+                              downloadButton("download_axis_table", "Download table")),
                        column(6,DT::dataTableOutput("slider_axis_table"))
                        
                      )
@@ -89,7 +90,8 @@ shinyUI(
                               sliderInput("slider_plane","Filter points",value = 50,min=0,max=100),
                               actionButton("do_plane","Create plane and table",class="btn-success"),
                               downloadButton("report_plane", "Generate report",class="btn-info"),
-                              downloadButton("download_plane", "Download plane")),
+                              downloadButton("download_plane", "Download plane"),
+                              downloadButton("download_plane_table", "Download table")),
                        column(6,DT::dataTableOutput("slider_plane_table"))
                      )
                    ,
@@ -98,7 +100,8 @@ shinyUI(
                      plotOutput("plane")
                      
                      ),
-            tabPanel("Data",DT::dataTableOutput("contents"))
+            tabPanel("Data",DT::dataTableOutput("contents")
+                     )
           )
           
         )

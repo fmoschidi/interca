@@ -53,7 +53,15 @@ if(require("shinyWidgets")==F){
 if(require("readxl")==F){
   install.packages("readxl")
 }
-
+if(require("writexl")==F){
+  install.packages("writexl")
+}
+if(require("readr")==F){
+  install.packages("readr")
+}
+if(require("openxlsx")==F){
+  install.packages("openxlsx")
+}
 
 #Loading libraries (please ensure that they are installed in your system )
 library(tidyverse)
@@ -74,6 +82,9 @@ library(pander)
 library(shinyFeedback)
 library(waiter)
 library(shinyWidgets)
+library(writexl)
+library(readr)
+library(openxlsx)
 (.packages())
 # Get the directory from the path of the current file.
 cur_dir2 = dirname(this.path())
