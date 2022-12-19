@@ -54,7 +54,8 @@ shinyUI(fluidPage(
                      textOutput("show_ecoords_label"),DT::dataTableOutput("results_ecoords"),
                      renderText("show_ctr_label"),DT::dataTableOutput("results_ctr"),
                      renderText("show_cor_label"),DT::dataTableOutput("results_cor"),
-                     conditionalPanel("input$show_scree==T",plotOutput("scree")),
+                     conditionalPanel("input$show_scree==T",plotOutput("scree"),
+                                      downloadButton("download_plot", "Download Plot")),
                      
                      ),
             tabPanel("Interpretive axis",
@@ -66,6 +67,7 @@ shinyUI(fluidPage(
                               checkboxInput("cb_slider_axis","Manual filtering",value = T),
                               sliderInput("slider_axis","Filter points",value = 50,min=0,max=100),
                               actionButton("do_axis","Create axis and table",class="btn-success"),
+                              downloadButton("download_axis", "Download axis"),
                               downloadButton("report", "Generate report",class="btn-info")),
                        column(6,DT::dataTableOutput("slider_axis_table"))
                        
@@ -81,7 +83,8 @@ shinyUI(fluidPage(
                               checkboxInput("cb_slider_plane","Manual filtering",value = T),
                               sliderInput("slider_plane","Filter points",value = 50,min=0,max=100),
                               actionButton("do_plane","Create plane and table",class="btn-success"),
-                              downloadButton("report_plane", "Generate report",class="btn-info")),
+                              downloadButton("report_plane", "Generate report",class="btn-info"),
+                              downloadButton("download_plane", "Download plane")),
                        column(6,DT::dataTableOutput("slider_plane_table"))
                      )
                    ,

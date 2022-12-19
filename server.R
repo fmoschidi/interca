@@ -6,6 +6,8 @@ library(waiter)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output,session) {
   
+  
+  
  
   data <- reactive({
     inFile <- input$file1
@@ -47,6 +49,59 @@ shinyServer(function(input, output,session) {
     }
   })
   
+  
+  scree_plot<-reactive({
+    if(input$show_scree==T){
+      run_mca()->result
+      result$plot
+      
+    }
+  })
+  plot_pdf <- reactive({
+    pdf("plot.pdf", width = 8, height = 6)
+    print(scree_plot())
+    dev.off()
+  })
+  
+  plot_axis <- reactive({
+    pdf("plot.pdf", width = 8, height = 6)
+    print(axis())
+    dev.off()
+  })
+  plot_plane <- reactive({
+    pdf("plot.pdf", width = 8, height = 6)
+    print(plane())
+    dev.off()
+  })
+  
+  output$download_plot <- downloadHandler(
+    filename = function() {
+      "plot.pdf"
+    },
+    content = function(file) {
+      plot_pdf()
+      file.copy("plot.pdf", file)
+    }
+  )
+  output$download_axis <- downloadHandler(
+    filename = function() {
+      "plot.pdf"
+    },
+    content = function(file) {
+      plot_axis()
+      file.copy("plot.pdf", file)
+    }
+  )
+  output$download_plane <- downloadHandler(
+    filename = function() {
+      "plot.pdf"
+    },
+    content = function(file) {
+      plot_plane()
+      file.copy("plot.pdf", file)
+    }
+  )
+
   list_results<-eventReactive(input$run,{
         
     interca(data(),input$num_axes)->res
