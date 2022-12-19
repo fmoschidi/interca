@@ -7,7 +7,7 @@ library(readr)
 library(readxl)
 # Define UI for application that draws a histogram
 shinyUI(
-  navbarPage("'Automatic' MCA interpretion",
+  navbarPage("'Automatic' MCA interpretation",
              tabPanel("InterShiny",
   fluidPage(
   useSweetAlert(),
